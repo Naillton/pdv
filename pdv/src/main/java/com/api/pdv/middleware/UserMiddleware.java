@@ -1,0 +1,8 @@
+package com.api.pdv.middleware;
+
+public class UserMiddleware {
+
+    public static Boolean ValidUser(String name, String password) {
+        return name.length() >= 3 && password.length() >= 8;
+    }
+}
