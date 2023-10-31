@@ -53,6 +53,39 @@ public class UserController {
         }
     }
 
+    @GetMapping( value = "/{id}")
+    public ResponseEntity<User> getUser(@PathVariable UUID id) {
+        User u = this.userService.findUserById(id);
+        try {
+            if (u == null) {
+                return ResponseEntity.status(HttpStatus.NOT_ACCEPTABLE).body(null);
+            }
+            return ResponseEntity.status(HttpStatus.ACCEPTED).body(u);
+        } catch (Exception e) {
+            return ResponseEntity.internalServerError().build();
+        }
+    }
+
+    @PutMapping( value = "/update/{id}")
+    public ResponseEntity<?> updateUser(@PathVariable UUID id, @RequestBody User user) {
+        User u = this.userService.findUserById(id);
+        if (u == null) {
+            return ResponseEntity.status(HttpStatus.NOT_ACCEPTABLE).body("User/Not/Exist");
+        } else {
+            try {
+                Boolean isTrue = UserMiddleware.ValidUser(user.getName(), user.getPassword());
+                if (isTrue) {
+                    this.userService.updateUser(user, id);
+                    return ResponseEntity.status(HttpStatus.ACCEPTED).body(u);
+                } else {
+                    return ResponseEntity.status(HttpStatus.NOT_ACCEPTABLE).body("Inavalid/Camps");
+                }
+            } catch (Exception e) {
+                return ResponseEntity.internalServerError().body(e.getMessage());
+            }
+        }
+    }
+
     @DeleteMapping( value = "/delete/{id}" )
     public ResponseEntity<String> deleteUserById(@PathVariable UUID id) {
         User user = this.userService.findUserById(id);
@@ -67,4 +100,15 @@ public class UserController {
             return ResponseEntity.internalServerError().build();
         }
     }
+
+    @DeleteMapping( value = "/delete/all" )
+    public ResponseEntity<String> deleteAllUsers() {
+        try {
+            this.userService.deleteAllUsers();
+            return ResponseEntity.status(HttpStatus.ACCEPTED).body("Users/Deleted");
+        } catch (Exception e) {
+            return ResponseEntity.internalServerError().build();
+        }
+    }
+
 }

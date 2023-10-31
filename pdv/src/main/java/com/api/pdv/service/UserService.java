@@ -23,10 +23,19 @@ public class UserService {
 
     public User getUser(String name) { return this.userRepository.findUserByName(name); }
 
-
     public void deleteUser(UUID id) { this.userRepository.deleteById(id); }
+
+    public void deleteAllUsers() { this.userRepository.deleteAll(); }
+
+    public void updateUser(User user, UUID id) {
+        User u = findUserById(id);
+        u.setName(user.getName());
+        u.setPassword(user.getPassword());
+        this.userRepository.saveAndFlush(u);
+    }
 
     public User findUserById(UUID id ) { return this.userRepository.findById(id)
             .stream().findFirst()
-            .orElse(null); }
+            .orElse(null);
+    }
 }
