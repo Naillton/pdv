@@ -29,9 +29,12 @@ public class UserController {
         if (u != null) {
             return ResponseEntity.status(HttpStatus.NOT_ACCEPTABLE).body("User/Already/Exist");
         } else {
-            Boolean isTrue = UserMiddleware.ValidUser(user.getName(), user.getPassword());
+            Boolean isTrue = UserMiddleware.ValidUser(user.getName(), user.getPassword().trim());
             if (isTrue) {
                 try {
+                    String md5 = UserMiddleware.getHashMd5(user.getPassword());
+                    String encoded = UserMiddleware.getEncode64(md5);
+                    user.setPassword(encoded);
                     this.userService.insertUser(user);
                     return ResponseEntity.status(HttpStatus.CREATED).body("User/Created");
                 } catch (Exception e) {
@@ -73,8 +76,11 @@ public class UserController {
             return ResponseEntity.status(HttpStatus.NOT_ACCEPTABLE).body("User/Not/Exist");
         } else {
             try {
-                Boolean isTrue = UserMiddleware.ValidUser(user.getName(), user.getPassword());
+                Boolean isTrue = UserMiddleware.ValidUser(user.getName(), user.getPassword().trim());
                 if (isTrue) {
+                    String md5 = UserMiddleware.getHashMd5(user.getPassword());
+                    String encoded = UserMiddleware.getEncode64(md5);
+                    user.setPassword(encoded);
                     this.userService.updateUser(user, id);
                     return ResponseEntity.status(HttpStatus.ACCEPTED).body(u);
                 } else {
