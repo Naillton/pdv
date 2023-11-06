@@ -7,7 +7,6 @@ import java.util.Base64;
 
 public class UserMiddleware {
 
-
     public static Boolean ValidUser(String name, String password) {
         return name.length() >= 3 && password.length() >= 8;
     }
@@ -37,5 +36,9 @@ public class UserMiddleware {
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
+    }
+
+    public static String getIdInfo() {
+        return "idInfo";
     }
 }

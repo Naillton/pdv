@@ -38,4 +38,8 @@ public class UserService {
             .stream().findFirst()
             .orElse(null);
     }
+
+    public User loginService(String name, String password) {
+        return this.userRepository.findUserByPasswordAndName(name, password);
+    }
 }
