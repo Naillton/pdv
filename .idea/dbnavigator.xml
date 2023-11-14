@@ -1,18 +1,38 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="DBNavigator.Project.DataEditorManager">
+    <record-view-column-sorting-type value="BY_INDEX" />
+    <value-preview-text-wrapping value="false" />
+    <value-preview-pinned value="false" />
+  </component>
   <component name="DBNavigator.Project.DatabaseBrowserManager">
     <autoscroll-to-editor value="false" />
     <autoscroll-from-editor value="true" />
-    <show-object-properties value="true" />
+    <show-object-properties value="false" />
     <loaded-nodes />
   </component>
   <component name="DBNavigator.Project.DatabaseConsoleManager">
-    <connection id="963a1f1a-d1ba-46c9-804b-e895f2a3db75">
-      <console name="pdv connection" type="STANDARD" schema="" session="Main" />
+    <connection id="d9dbf173-7574-4cf7-8484-18950bd8d913">
+      <console name="pdv" type="STANDARD" schema="api" session="Main"><![CDATA[USE api;
+SELECT * FROM users;]]></console>
     </connection>
+  </component>
+  <component name="DBNavigator.Project.DatabaseEditorStateManager">
+    <last-used-providers />
   </component>
   <component name="DBNavigator.Project.DatabaseFileManager">
     <open-files />
+  </component>
+  <component name="DBNavigator.Project.ExecutionManager">
+    <retain-sticky-names value="false" />
+  </component>
+  <component name="DBNavigator.Project.MethodExecutionManager">
+    <method-browser />
+    <execution-history>
+      <group-entries value="true" />
+      <execution-inputs />
+    </execution-history>
+    <argument-values-cache />
   </component>
   <component name="DBNavigator.Project.ObjectQuickFilterManager">
     <last-used-operator value="EQUAL" />
@@ -20,9 +40,9 @@
   </component>
   <component name="DBNavigator.Project.Settings">
     <connections>
-      <connection id="963a1f1a-d1ba-46c9-804b-e895f2a3db75" active="true" signed="true">
+      <connection id="d9dbf173-7574-4cf7-8484-18950bd8d913" active="true" signed="true">
         <database>
-          <name value="pdv connection" />
+          <name value="pdv" />
           <description value="" />
           <database-type value="MYSQL" />
           <config-type value="BASIC" />
@@ -33,7 +53,7 @@
           <url-type value="DATABASE" />
           <host value="localhost" />
           <port value="3306" />
-          <database value="api" />
+          <database value="mysql" />
           <tns-folder value="" />
           <tns-profile value="" />
           <type value="USER_PASSWORD" />
@@ -510,5 +530,9 @@
         </visibility-settings>
       </environment>
     </general-settings>
+  </component>
+  <component name="DBNavigator.Project.StatementExecutionManager">
+    <execution-variables />
+    <execution-variable-types />
   </component>
 </project>

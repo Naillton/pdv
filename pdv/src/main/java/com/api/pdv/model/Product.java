@@ -17,12 +17,18 @@ public class Product {
     private String name;
 
     @Column(name = "preco")
-    private float preco;
+    private Float preco;
 
-    public Product(String id, String name, Float preco) {
+    @Column(name = "quantidade")
+    private Integer quantidade;
+
+    public Product() {}
+
+    public Product(String id, String name, Float preco, Integer quantidade) {
         this.id = id;
         this.name = name;
         this.preco = preco;
+        this.quantidade = quantidade;
     }
 
     public String getId() {
@@ -33,9 +39,11 @@ public class Product {
         return name;
     }
 
-    public float getPreco() {
+    public Float getPreco() {
         return preco;
     }
+
+    public Integer getQuantidade() { return quantidade; }
 
     public void setId(String id) {
         this.id = id;
@@ -45,7 +53,9 @@ public class Product {
         this.name = name;
     }
 
-    public void setPreco(float preco) {
+    public void setPreco(Float preco) {
         this.preco = preco;
     }
+
+    public void setQuantidade(Integer quantidade) { this.quantidade = quantidade; }
 }

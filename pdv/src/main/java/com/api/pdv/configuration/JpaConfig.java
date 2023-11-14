@@ -1,5 +1,6 @@
 package com.api.pdv.configuration;
 
+import com.api.pdv.service.ProductService;
 import com.api.pdv.service.UserService;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -13,4 +14,7 @@ public class JpaConfig {
     public UserService userService() {
         return new UserService();
     }
+
+    @Bean("productService")
+    public ProductService productService() { return new ProductService(); }
 }
