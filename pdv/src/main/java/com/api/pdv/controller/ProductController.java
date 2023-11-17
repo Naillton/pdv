@@ -1,8 +1,8 @@
 package com.api.pdv.controller;
 
+import com.api.pdv.dto.ProductDTO;
 import com.api.pdv.model.Product;
 import com.api.pdv.service.ProductService;
-import com.api.pdv.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -23,17 +23,17 @@ public class ProductController {
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE
     )
-    public ResponseEntity<String> insertProduct(@RequestBody Product product) {
+    public ResponseEntity<String> insertProduct(@RequestBody ProductDTO product) {
         try {
-            Product heExist = this.productService.findProductById(product.getId());
+            Product heExist = this.productService.findProductById(product.id());
             if (heExist != null) {
                 return ResponseEntity.status(HttpStatus.NOT_ACCEPTABLE).body("Product/Exist");
             } else {
-                this.productService.insertProduct(product);
+                this.productService.insertProduct(product.toEntity());
                 return ResponseEntity.status(HttpStatus.CREATED).body("Product/Inserted");
             }
         } catch (Exception e) {
-            return ResponseEntity.internalServerError().body(e.getMessage());
+            return ResponseEntity.internalServerError().build();
         }
     }
 
@@ -67,13 +67,13 @@ public class ProductController {
     @PutMapping(
             value = "/update/{id}"
     )
-    public ResponseEntity<String> updateProduct(@PathVariable String id, @RequestBody Product product) {
+    public ResponseEntity<String> updateProduct(@PathVariable String id, @RequestBody ProductDTO product) {
         try {
             Product productExist = this.productService.findProductById(id);
             if (productExist == null) {
                 return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Product/Not/Found");
             }
-            this.productService.updateProduct(product, id);
+            this.productService.updateProduct(product.toEntity(), id);
             return ResponseEntity.status(HttpStatus.ACCEPTED).body("Product/Updated");
         } catch (Exception e) {
             return ResponseEntity.internalServerError().body(e.getMessage());

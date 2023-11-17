@@ -1,10 +1,9 @@
 package com.api.pdv.controller;
 
+import com.api.pdv.dto.UserDTO;
 import com.api.pdv.util.UserMiddleware;
 import com.api.pdv.model.User;
 import com.api.pdv.service.UserService;
-import jakarta.servlet.*;
-import jakarta.servlet.http.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -40,15 +39,15 @@ public class UserController {
     }
 
     @PutMapping( value = "/update/{id}")
-    public ResponseEntity<?> updateUser(@PathVariable UUID id, @RequestBody User user) {
+    public ResponseEntity<?> updateUser(@PathVariable UUID id, @RequestBody UserDTO user) {
             try {
                 User u = this.userService.findUserById(id);
                 if (u == null) {
                     return ResponseEntity.status(HttpStatus.NOT_ACCEPTABLE).body("User/Not/Exist");
                 } else {
-                    Boolean isTrue = UserMiddleware.ValidUser(user.getName(), user.getPassword().trim());
+                    Boolean isTrue = UserMiddleware.ValidUser(user.name(), user.password().trim());
                     if (isTrue) {
-                        this.userService.updateUser(user, id);
+                        this.userService.updateUser(user.toEntity(), id);
                         return ResponseEntity.status(HttpStatus.ACCEPTED).body(u);
                     } else {
                         return ResponseEntity.status(HttpStatus.NOT_ACCEPTABLE).body("Inavalid/Camps");

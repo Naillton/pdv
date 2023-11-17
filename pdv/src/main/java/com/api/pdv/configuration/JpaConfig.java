@@ -1,6 +1,7 @@
 package com.api.pdv.configuration;
 
 import com.api.pdv.service.ProductService;
+import com.api.pdv.service.SaleService;
 import com.api.pdv.service.UserService;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -17,4 +18,7 @@ public class JpaConfig {
 
     @Bean("productService")
     public ProductService productService() { return new ProductService(); }
+
+    @Bean("saleService")
+    public SaleService saleService() { return new SaleService(); }
 }

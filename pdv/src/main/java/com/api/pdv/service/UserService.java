@@ -1,10 +1,11 @@
 package com.api.pdv.service;
 
+import com.api.pdv.model.Sale;
 import com.api.pdv.model.User;
+import com.api.pdv.repository.SaleRepository;
 import com.api.pdv.repository.UserRepository;
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
-import jakarta.servlet.http.HttpServletResponse;
 import org.jvnet.hk2.annotations.Service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -40,6 +41,8 @@ public class UserService {
 
     public void updateUser(User user, UUID id) {
         User u = findUserById(id);
+        String hashedPass = encodePass(user.getPassword());
+        user.setPassword(hashedPass);
         u.setName(user.getName());
         u.setPassword(user.getPassword());
         this.userRepository.saveAndFlush(u);
